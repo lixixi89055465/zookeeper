@@ -1,6 +1,7 @@
 package com.atguigui.zk;
 
 import org.apache.zookeeper.*;
+import org.apache.zookeeper.data.Stat;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,11 +17,15 @@ public class zkClient {
 
     private ZooKeeper zkClient;
 
+    public static List<String> getChildren(String s, boolean b) {
+        return null;
+    }
+
     @Before
     public void init() throws IOException {
         zkClient = new ZooKeeper(connectionString, sessionTimeOut, new Watcher() {
             public void process(WatchedEvent watchedEvent) {
-                System.out.println("------------------------------------------" );
+                System.out.println("------------------------------------------");
                 List<String> children = null;
                 try {
                     children = zkClient.getChildren("/", true);
@@ -32,7 +37,7 @@ public class zkClient {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("------------------------------------------" );
+                System.out.println("------------------------------------------");
             }
         });
     }
@@ -50,6 +55,12 @@ public class zkClient {
         }
         //延时
         Thread.sleep(Long.MAX_VALUE);
+    }
+
+    @Test
+    public void exist() throws KeeperException, InterruptedException {
+        Stat stat = zkClient.exists("/atguigu", false);
+        System.out.println(stat == null ? "not exist" : "exist");
     }
 
 }
