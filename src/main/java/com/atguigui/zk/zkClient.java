@@ -17,9 +17,6 @@ public class zkClient {
 
     private ZooKeeper zkClient;
 
-    public static List<String> getChildren(String s, boolean b) {
-        return null;
-    }
 
     @Before
     public void init() throws IOException {
